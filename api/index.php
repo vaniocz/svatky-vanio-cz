@@ -2,10 +2,15 @@
 
 // input
 
-$date = new \DateTime($_GET['date']);
-if (!$date) {
+try {
+    $date = new \DateTime($_GET['date']);
+    if (!$date) {
+        $date = new \DateTime;
+    }
+} catch (\Exception $e) {
     $date = new \DateTime;
 }
+
 $year = (int) $date->format('Y');
 $month = (int) $date->format('n');
 $day = (int) $date->format('j');
@@ -118,7 +123,9 @@ if ($output['isPublicHoliday']) {
 
 // assemble response
 
-if (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') !== false) {
+if (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false) {
+    echo json_encode($output);
+} else if (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') !== false) {
     echo '<html><head><meta charset="utf-8"></head><body><dl>';
     foreach($output as $name => $value) {
         if (is_array($value)) {
@@ -127,12 +134,11 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') !== false) {
             }
         
         } else {
+            $value = is_bool($value) ? (int) $value : $value;
             echo "<dt>$name</dt><dd>$value</dd>"; 
         }
     }
     echo '</dl></body></html>';
-} else if (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false) {
-    echo json_encode($output);
 } else {
     foreach($output as $name => $value) {
         if (is_array($value)) {
@@ -141,6 +147,7 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') !== false) {
             }
         
         } else {
+            $value = is_bool($value) ? (int) $value : $value;
             echo "$name: $value\n"; 
         }
     }
