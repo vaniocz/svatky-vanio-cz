@@ -3,12 +3,12 @@
 // input
 
 try {
-    $date = new \DateTime($_GET['date']);
+    $date = new \DateTimeImmutable($_GET['date']);
     if (!$date) {
-        $date = new \DateTime;
+        $date = new \DateTimeImmutable;
     }
 } catch (\Exception $e) {
-    $date = new \DateTime;
+    $date = new \DateTimeImmutable;
 }
 
 $year = (int) $date->format('Y');
@@ -93,7 +93,7 @@ if (isset($holidays[$month][$day])) {
 }
 
 if ( $year >= 1951 ) {
-    $springDate = new \DateTime("$year-03-21");
+    $springDate = new \DateTimeImmutable("$year-03-21");
     $daysToEaster = easter_days($year);
     $daysToEasterMonday = $daysToEaster + 1;
     $easterMonday = $springDate->add(new \DateInterval("P{$daysToEasterMonday}D"));
