@@ -28,6 +28,7 @@ Odpověď serveru obsahuje tyto pole:
 * *name* (string): Jméno, které slaví svátek
 * *isPublicHoliday* (boolean): Zda je dané datum státním svátkem
 * *holidayName* (string): Pouze, pokud je dané datum státním svátkem, název státního svátku
+* *shopsClosed* (boolean|string): Pouze, pokud je dané datum státním svátkem. Informace, zda jsou podle zákona zavřené obchody. V případě 24.12. je hodnota string ("po 12. hodině"), u ostatních svátků je hodnota boolean.
 
 ## Podporované formáty:
 
@@ -48,7 +49,8 @@ Odpověď serveru obsahuje tyto pole:
         "dow":"pond\u011bl\u00ed",
         "name":"Adam a Eva",
         "isPublicHoliday":true,
-        "holidayName":"\u0160t\u011bdr\u00fd den"
+        "holidayName":"\u0160t\u011bdr\u00fd den",
+        "shopsClosed":"po 12. hodin\u011b"
     }
     ```
 2. **HTML**
@@ -72,6 +74,7 @@ Odpověď serveru obsahuje tyto pole:
                 <dt>name</dt><dd>Adam a Eva</dd>
                 <dt>isPublicHoliday</dt><dd>1</dd>
                 <dt>holidayName</dt><dd>Štědrý den</dd>
+                <dt>shopsClosed</dt><dd>po 12. hodině</dd>
             </dl>
         </body>
     </html>
@@ -87,4 +90,5 @@ Odpověď serveru obsahuje tyto pole:
     name: Adam a Eva
     isPublicHoliday: 1
     holidayName: Štědrý den
+    shopsClosed: po 12. hodině
     ```

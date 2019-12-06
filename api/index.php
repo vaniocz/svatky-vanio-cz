@@ -78,15 +78,43 @@ $holidays = [
     ],
 ];
 
+$closedShopsDates = [
+    1 => [
+        1 => [ 2017 => true ],
+    ],
+    5 => [
+        8 => [ 2017 => true ],
+    ],
+    9 => [
+        28 => [ 2017 => true ],
+    ],
+    10 => [
+        28 => [ 2016 => true ],
+    ],
+    12 => [
+        24 => [ 2016 => 'po 12. hodině' ],
+        25 => [ 2016 => true ],
+        26 => [ 2016 => true ],
+    ],
+];
+
 // evaluate public holidays
 
-$holidayName = '';
+$holidayName = null;
 if (isset($holidays[$month][$day])) {
     foreach ($holidays[$month][$day] as $validityYear => $description) {
         if ($year >= $validityYear) {
-            if ($description !== null) {
-                $holidayName = $description; 
-            }
+            $holidayName = $description; 
+            break;
+        }
+    }
+}
+
+$shopsClosed = false;
+if (isset($closedShopsDates[$month][$day])) {
+    foreach ($closedShopsDates[$month][$day] as $validityYear => $value) {
+        if ($year >= $validityYear) {
+            $shopsClosed = $value;
             break;
         }
     }
@@ -99,7 +127,10 @@ if ( $year >= 1951 ) {
     $easterMonday = $springDate->add(new \DateInterval("P{$daysToEasterMonday}D"));
     if ($easterMonday->format('Y-m-d') === $date->format('Y-m-d')) {
         $holidayName = 'Velikonoční pondělí';
-    } else if ( $year >= 2016 ) {
+        if ($year > 2016) {
+            $shopsClosed = true;
+        }
+    } else if ($year >= 2016) {
         $daysToEasterFriday = $daysToEaster - 2;
         $easterFriday = $springDate->add(new \DateInterval("P{$daysToEasterFriday}D"));
         if ($easterFriday->format('Y-m-d') === $date->format('Y-m-d')) {
@@ -118,6 +149,7 @@ $output['name'] = $names[$month][$day];
 $output['isPublicHoliday'] = $holidayName !== '';
 if ($output['isPublicHoliday']) {
     $output['holidayName'] = $holidayName;
+    $output['shopsClosed'] = $shopsClosed;
 }
 
 
