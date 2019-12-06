@@ -146,7 +146,7 @@ $output['date'] = $date->format('Y-m-d');
 $output['month'] = $months[$month];
 $output['dow'] = $dows[$date->format('N')];
 $output['name'] = $names[$month][$day];
-$output['isPublicHoliday'] = $holidayName !== '';
+$output['isPublicHoliday'] = $holidayName !== null;
 if ($output['isPublicHoliday']) {
     $output['holidayName'] = $holidayName;
     $output['shopsClosed'] = $shopsClosed;
