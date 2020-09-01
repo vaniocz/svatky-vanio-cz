@@ -156,6 +156,7 @@ if ($output['isPublicHoliday']) {
 // assemble response
 
 if (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false) {
+    header("Access-Control-Allow-Origin: *");
     echo json_encode($output);
 } else if (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') !== false) {
     echo '<html><head><meta charset="utf-8"></head><body><dl>';
