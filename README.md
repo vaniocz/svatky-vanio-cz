@@ -1,4 +1,14 @@
 # Svátky Vanio
+
+## POZOR! Provoz API bude ke konci roku 2024 ukončen!
+
+Od nového roku již nebudu mít kapacitu se o provoz API starat, proto prosím o pochopení, že jeho provoz nejpozději k 31. 12. 2024 skončí.
+Budete-li někdo ochotní spustit vlastní instanci, vytvořte prosím PR s úpravou tohoto README s novou URL, na které API poběží.
+
+Díky moc za podporu a pochopení.
+
+Stanislav Kocanda, autor
+
 ## Veřejné API s informací o českých státních svátcích
 
 Toto API je možné využít bez omezení, jeho použití je zcela zdarma, nicméně jeho fungování je bez záruky.
